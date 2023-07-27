@@ -1,0 +1,131 @@
+.mains {
+    text-align: center;
+    justify-content:right;
+    display: flex;
+    padding-top: 100px;
+    /* padding-bottom: 90px; */
+  
+    /* background-attachment: fixed; */
+    /* background-position: center; */
+}
+body{
+    background-repeat: no-repeat;
+        background-size: cover;
+        background-color: black;
+        /* background-image: url('../images/back.jpg'); */
+}
+.sub-mains {
+    display: flex;
+    justify-content:center;
+    height: 550px;
+    width: 45%;
+    box-shadow: 5px 6px 6px 2px rgb(191, 193, 194);
+    padding-top: 0px;
+    margin-right: 30px;
+border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+.sub-mains1 {
+    display: flex;
+    justify-content: center;
+    height: 550px;
+    width: 43%;
+    box-shadow: 0px 6px 6px 2px rgb(191, 193, 194);
+    background-image: url('../images/backlogin.jpg');
+    /* background-color: #ffffff; */
+    background-size: cover;
+
+    padding-top: 0px;
+    border-top-left-radius: 15px;
+        border-bottom-left-radius: 15px;
+}
+.imgs {
+    padding-top: 0px;
+    justify-content: center;
+    display: flex;
+}
+.profile {
+    height: 100px;
+    width: 100px;
+    border-radius: 130px;
+    background-color: white;
+}
+
+input {
+    width: 550px;
+    height: 50px;
+    border-radius: 5px;
+    /* box-shadow: 0px 0px 1px 1px #c9c7c7; */
+    border: none;
+    outline: none;
+    
+}
+
+.email {
+    height: 25px;
+    width: 25px;
+    position: absolute;
+    padding: 14px 0 0 7px;
+}
+
+.name {
+    padding-left: 20px;
+    font-size: 20px;
+}
+.input1{
+    margin-top: 10px;
+    border-radius: 5px;
+    border: 1.5px solid black;
+}
+.input2 {
+    margin-top: 60px;
+    border-radius: 5px;
+    border: 1.5px solid black;
+}
+.second-input {
+    padding-top: 50px;
+}
+
+/* button {
+    width: 550px;
+    height: 50px;
+    border-radius: 5px;
+    background-color: #1b9eb6;
+    color: white;
+    font-size: 25px;
+    border: none;
+} */
+
+.login-button {
+    padding-top: 50px;
+   
+}
+
+/* button{
+    cursor: pointer;
+    border-radius: 20px;
+} */
+/* button:hover{
+    transition: .5s;
+    background-color: #33d4f1;
+    
+} */
+
+
+.link {
+    font-size: 20px;
+    font-weight: 200;
+    padding: 10px;
+    justify-content: space-around;
+    display: flex;
+    margin-top: 30px;
+    color: black;
+}
+
+a {
+    text-decoration: none;
+    
+}
+.profile{
+    width: max-content;
+}
