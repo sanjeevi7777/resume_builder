@@ -72,12 +72,6 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-
-		<dependency>
-			<groupId>com.example</groupId>
-			<artifactId>OneToOne</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
 <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-netflix-eureka-client -->
 <dependency>
     <groupId>org.springframework.cloud</groupId>

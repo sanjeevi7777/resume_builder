@@ -1,14 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import NavBar from './navBar2';
 import '../style/index.css';
 import { Button } from '@chakra-ui/react';
-import {ArrowForwardIcon } from '@chakra-ui/icons'
+import { ArrowForwardIcon } from '@chakra-ui/icons';
 import { useNavigate } from 'react-router-dom';
-import back from '../images/back.jpg';
 
 function Index() {
     localStorage.clear();
+    const [isLoading, setIsLoading] = useState(false); // Use useState to manage loading state
     const navigate = useNavigate();
+
+    const start = () => {
+        setIsLoading(true); // Set isLoading to true
+        navigate("/login");
+    };
 
     return (
         <>
@@ -16,16 +21,16 @@ function Index() {
             <style>
                 {`
                     body {
-                        background-color:#F8F8F8;
-                        background-size:cover;
-                        background-repeat:no-repeat;
+                        background-color: #F8F8F8;
+                        background-size: cover;
+                        background-repeat: no-repeat;
                     }
                 `}
             </style>
             <div className='mainindex'>
                 <div className='index'>
                     <div className='h2'>
-                        <h1 >
+                        <h1>
                             Free Online Resume Builder: Make Yours in Minutes!
                         </h1>
                     </div>
@@ -39,7 +44,17 @@ function Index() {
                             Resume writing can be stressful, confusing, and time-consuming if you do it all on your own. With our Resume Maker, it’s quick, pain-free, and effective.
                         </h5>
                     </div>
-                    <Button rightIcon={<ArrowForwardIcon />} colorScheme='linkedin' size='lg' onClick={() => { navigate("/login") }}>Get Started</Button>
+                    
+                    <Button
+                        isLoading={isLoading}
+                        rightIcon={<ArrowForwardIcon />}
+                        color={'white'}
+                        colorScheme='teal'
+                        size='lg'
+                        onClick={start}
+                    >
+                        Get Started
+                    </Button>
                 </div>
             </div>
         </>

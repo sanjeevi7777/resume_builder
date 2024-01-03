@@ -5,7 +5,6 @@
     position: fixed;
     width: 100%;
     /* background-color: #ffffff; */
-    /* background: transparent;     */
     /* background: #ECE9E6;
       
     background: -webkit-linear-gradient(to left, #f8ffff, #f1ffff);
@@ -183,23 +182,17 @@ a {
     margin-top: 150px
 }
 .side {
-    background-color: #ddfffe;
-    /* fallback for old browsers */
+    background-color: #e7fffe;
     background: -webkit-linear-gradient(to left, #f8ffff, #eefffe);
-    /* position:absolute; */
     background: linear-gradient(to left, #f5fffe, #edfffe);
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     width: 20%;
-    margin-top: 80px;
-    /* box-shadow: 0px 0.5px 5px rgba(0, 0, 0, 0.3); */
-    /* box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.3); */
-    /* height:auto;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); */
-    /* Adjust the values as needed */
-
+    margin-top: 85px;
+    flex: 0 0 auto;
+}
+.side-container {
+    display: flex;
 }
 .content {
-    /* box-shadow: 0.5px 0px 5px rgba(0, 0, 0, 0.3); */
     width: 40%;
     height:0px;
     background-color: "#eeeeee";
@@ -292,7 +285,7 @@ text-align: center;
 .template1{
     width:24%;
     height: 500px;
-    background-image: url('../images/template.jpg');
+    background-image: url('../images/Temp1.png');
     background-repeat: no-repeat;
     background-size:cover;
     cursor: pointer;
@@ -300,7 +293,7 @@ text-align: center;
 .template2  {
     width: 24%;
     height: 500px;
-    background-image: url('../images/template2.jpg');
+    background-image: url('../images/Temp2.png');
     background-repeat: no-repeat;
     background-size: cover;
     cursor: pointer;
@@ -308,7 +301,7 @@ text-align: center;
 .template3 {
     width: 24%;
     height: 500px;
-    background-image: url('../images/template3.jpg');
+    background-image: url('../images/Temp3.png');
     background-repeat: no-repeat;
     background-size:cover;
     cursor: pointer;
@@ -316,7 +309,7 @@ text-align: center;
 .template4 {
     width: 24%;
     height: 500px;
-    background-image: url('../images/template4.jpg');
+    background-image: url('../images/Temp4.png');
     background-repeat: no-repeat;
     background-size: cover;
     cursor: pointer;

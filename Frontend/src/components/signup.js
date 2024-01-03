@@ -7,7 +7,6 @@ import {
     FormLabel,
     Input,
     InputGroup,
-    HStack,
     InputRightElement,
     Stack,
     Button,
@@ -32,6 +31,7 @@ export default function SignupCard() {
     const [fnameerror, setFnameError] = useState('');
     const [emailerror, setEmailError] = useState('');
     const [passerror, setPassError] = useState('');
+    const [isLoading, setIsLoading] = useState(false); // Loading state
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -39,7 +39,6 @@ export default function SignupCard() {
     const changeHandlerFname = (e) => {
         const value = e.target.value;
         setFname(value);
-        console.log(value)
         if (value.trim() === '') {
             setColorFname('red');
             setFnameError('Enter First Name');
@@ -48,6 +47,7 @@ export default function SignupCard() {
             setFnameError('');
         }
     };
+
     const changeHandlerEmail = (e) => {
         const value = e.target.value;
         setEmail(value);
@@ -73,7 +73,6 @@ export default function SignupCard() {
     };
 
     const submitHandler = () => {
-        
         if (fname.trim() === '') {
             setColorFname('red');
             setFnameError('Enter First Name');
@@ -92,46 +91,48 @@ export default function SignupCard() {
             return;
         }
 
-        dispatch(
-            login({
-                username: fname,
+        setIsLoading(true); // Enable loading state
+        setTimeout(()=>{
+        axios
+            .post('http://localhost:8989/api/v1/auth/register', {
+                name: fname,
+                email: email,
+                password: pass,
             })
-        );
-            axios
-                .post('http://localhost:8989/api/v1/auth/register', {
-                    name:fname,
-                    email: email,
-                    password: pass,
-                })
-                .then((response) => {
-                    const token = response.data.token;
-                    console.log(token)
-                    // Store the JWT token securely (e.g., in localStorage or HttpOnly cookie)
-                    // localStorage.setItem('jwtToken', token);
-                    // dispatch(login({ username: email }));
-                    navigate('/home');
-                })
-                .catch((error) => {
-                    console.log(pass)
-                    console.log('An error occurred during the signup request:', error);
-                    // setUserError('Invalid user or password');
-                });
+            .then((response) => {
+                const token = response.data.token;
+                console.log(token);
+                localStorage.setItem('jwtToken',token)
+                // Store the JWT token securely (e.g., in localStorage or HttpOnly cookie)
+                // localStorage.setItem('jwtToken', token);
+
+                // Dispatch the login action
+                dispatch(login({ username: fname }));
+
+                navigate('/home');
+            })
+            .catch((error) => {
+                console.log(pass);
+                console.log('An error occurred during the signup request:', error);
+            })
+            .finally(() => {
+                setIsLoading(false); // Disable loading state
+            });
+        },3000);
     };
 
     const [showPassword, setShowPassword] = useState(false);
 
     return (
         <Flex
-        minH={'100vh'}
-        align={'center'}
-        justify={'center'}
-        backgroundImage={back}
+            minH={'100vh'}
+            align={'center'}
+            justify={'center'}
+            backgroundImage={back}
             backgroundRepeat={'no-repeat'}
             backgroundSize={'cover'}
-        
-            // bg={useColorModeValue('white', 'gray.800')}
         >
-            <Stack spacing={5} mx={'auto'} width={'70vh'} py={12} px={6} opacity={0.9} >
+            <Stack spacing={5} mx={'auto'} width={'70vh'} py={12} px={6} opacity={0.9}>
                 <Stack align={'center'}>
                     <Heading fontSize={'4xl'} textAlign={'center'}>
                         Sign up
@@ -147,17 +148,15 @@ export default function SignupCard() {
                     p={8}
                 >
                     <Stack spacing={1}>
-                       
-                                <FormControl id="email" isRequired>
-                                    <FormLabel>User Name</FormLabel>
-                                    <Input
-                                        type="text"
-                                        value={fname}
-                                        onChange={changeHandlerFname}
-                                    />
-                                    <Text style={{ color: colorfname }}>{fnameerror}</Text>
-                                </FormControl>
-                        
+                        <FormControl id="email" isRequired>
+                            <FormLabel>User Name</FormLabel>
+                            <Input
+                                type="text"
+                                value={fname}
+                                onChange={changeHandlerFname}
+                            />
+                            <Text style={{ color: colorfname }}>{fnameerror}</Text>
+                        </FormControl>
                         <FormControl id="email" isRequired>
                             <FormLabel>Email address</FormLabel>
                             <Input
@@ -190,7 +189,8 @@ export default function SignupCard() {
                         </FormControl>
                         <Stack spacing={10} pt={2}>
                             <Button
-                                loadingText="Submitting"
+                                isLoading={isLoading} // Use the loading state here
+                                loadingText="Creating"
                                 size="lg"
                                 bg={'blue.400'}
                                 color={'white'}
@@ -204,7 +204,10 @@ export default function SignupCard() {
                         </Stack>
                         <Stack pt={6}>
                             <Text align={'center'}>
-                                Already a user? <Link color={'blue.400'} onClick={()=>{navigate("/login")}}>Login</Link>
+                                Already a user?{' '}
+                                <Link color={'blue.400'} onClick={() => { navigate("/login") }}>
+                                    Login
+                                </Link>
                             </Text>
                         </Stack>
                     </Stack>

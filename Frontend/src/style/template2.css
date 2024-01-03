@@ -12,7 +12,7 @@ hr {
     position: absolute;
     display: flex;
     padding: -50;
-    border: 5px solid rgb(214, 214, 214);
+    border: 5px solid black;
 }
 
 #profile {

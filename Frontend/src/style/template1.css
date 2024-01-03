@@ -1,18 +1,4 @@
 
-/* html {
-    height: 100%;
-}
-
-body {
-    min-height: 100%;
-    background: #eee;
-    font-family: 'Lato', sans-serif;
-    font-weight: 400;
-    color: #222;
-    font-size: 14px;
-    line-height: 26px;
-    padding-bottom: 50px;
-} */
 
 .container {
     max-width: 700px;
@@ -22,6 +8,7 @@ body {
     border-radius: 3px;
     padding: 40px;
     margin-top: 0px;
+    border: 5px solid black;
 }
 
 .header {

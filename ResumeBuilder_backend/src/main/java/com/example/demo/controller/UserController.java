@@ -24,4 +24,5 @@ public class UserController {
 		userService.addUserFeedback(userRequest);
 		return ResponseEntity.status(HttpStatus.OK).body("Feedback added!");
 	}
+	
 }

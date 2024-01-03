@@ -5,6 +5,7 @@ import '../style/page.css'
 import { useNavigate } from 'react-router-dom';
 import Footer from './footer';
 function Template() {
+
     const textToWrite = "Choose Your Template!...   ";
     const [displayText1, setDisplayText1] = useState('');
     const navigate=useNavigate();
@@ -57,7 +58,13 @@ function Template() {
     const handleMouseLeave4 = () => {
         setIsHovered4(false);
     };
+    const jwtToken = localStorage.getItem('jwtToken'); 
+
+    if (!jwtToken) {
+        return <div>Please log in or to access this page.</div>;
+    }
     return (
+        
         <div>
             <div>
                 <NavBar />

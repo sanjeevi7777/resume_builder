@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Center } from '@chakra-ui/react';
 import {
     Container,
     Flex,
@@ -18,10 +19,10 @@ import {
     Textarea,
     useToast, 
 } from '@chakra-ui/react';
-import { MdPhone, MdEmail, MdLocationOn, MdFacebook, MdOutlineEmail } from 'react-icons/md';
-import { BsGithub, BsDiscord, BsPerson } from 'react-icons/bs';
+import { MdPhone, MdEmail, MdLocationOn, MdOutlineEmail } from 'react-icons/md';
+import {  BsPerson } from 'react-icons/bs';
 import NavBar from './navBar';
-
+import { useEffect } from 'react';
 export default function Contact() {
     const token=localStorage.getItem('jwtToken');
     console.log("Token :"+token);
@@ -30,7 +31,19 @@ export default function Contact() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
+    const [feedbackData, setFeedbackData] = useState([]);
 
+    useEffect(() => {
+        axios
+          .get('http://localhost:8082/api/v1/feed/getFeedback')
+          .then((response) => {
+            setFeedbackData(response.data);
+          })
+          .catch((error) => {
+            console.log('An error occurred while fetching feedback data:', error);
+          });
+      }, []);
+      
     const handleNameChange = (e) => {
         setName(e.target.value);
     };
@@ -54,29 +67,29 @@ export default function Contact() {
             })
             .then((response) => {
                 console.log(response.data);
-                toast({
-                    position: 'top',
-                    title: 'Message Sent',
-                    description: 'Your message has been sent successfully.',
-                    status: 'success',
-                    duration: 5000, // Duration in milliseconds, or null for infinite duration
-                    isClosable: true, // Allow users to close the toast manually
-                });
+               
             
             })
             .catch((error) => {
                 console.log('An error occurred during the request:', error);
-            
+                toast({
+                    position: 'top',
+                    title: 'Message Sent',
+                    description: 'Your feedback has been sent successfully.',
+                    status: 'success',
+                    duration: 5000, // Duration in milliseconds, or null for infinite duration
+                    isClosable: true, // Allow users to close the toast manually
+                });
             });
     };
 
     return (
         <>
             <NavBar />
-            <Container bg="#E1EBEE" maxW="full" maxH="fit-content" pt={100} centerContent overflow="hidden">
+            <Container bg="" maxW="full" maxH="fit-content" pt={100} centerContent overflow="hidden">
                 <Flex>
                     <Box
-                        bg="teal"
+                        bg="lightgrey"
                         borderRadius="lg"
                         m={{ sm: 4, md: 16, lg: 10 }}
                         p={{ sm: 5, md: 5, lg: 16 }}>
@@ -175,7 +188,7 @@ export default function Contact() {
                                                     </InputGroup>
                                                 </FormControl>
                                                 <FormControl id="message">
-                                                    <FormLabel>Message</FormLabel>
+                                                    <FormLabel>FeedBack</FormLabel>
                                                     <Textarea
                                                         borderColor="gray.300"
                                                         _hover={{
@@ -193,7 +206,7 @@ export default function Contact() {
                                                         color="white"
                                                         onClick={handleSubmit}
                                                     >
-                                                        Send Message
+                                                        Send feedback
                                                     </Button>
                                                 </FormControl>
                                             </VStack>
@@ -205,6 +218,41 @@ export default function Contact() {
                     </Box>
                 </Flex>
             </Container>
+            <Center>
+                <h3>
+
+                Other Reviews
+                </h3>
+            </Center>
+            <Center>
+            <Box
+  m={8}
+  color="#0B0E3F"
+  width={"75%"}
+  p={10}
+  border="0px double #000" // Double border
+  borderRadius="lg"
+  boxShadow="0px 4px 6px rgba(0, 0, 0, 0.1)" // Shadow effect
+>
+    <VStack spacing={5}>
+      {feedbackData.map((item, index) => (
+        <Box
+          key={item.id}
+          borderRadius="lg"
+          p={2} // Reduce padding
+          w={"95%"} // Reduce width
+          ml={index % 2 === 0 ? 0 : 'auto'} // Align right on odd-indexed items
+          mr={index % 2 === 0 ? 'auto' : 0} 
+          bg={index % 2 === 0 ? '#E0E1E7' : '#F2F3F7'} // Alternate background colors
+        >   
+          <Text fontSize="lg">{item.name}</Text>
+          <Text fontSize="md">{item.email}</Text>
+          <Text fontSize="md">{item.feedback}</Text>
+        </Box>
+      ))}
+    </VStack>
+  </Box>
+</Center>
         </>
     );
 }

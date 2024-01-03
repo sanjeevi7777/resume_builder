@@ -3,19 +3,21 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { FaArrowRight } from 'react-icons/fa';
 import { Form } from 'react-bootstrap';
 import '../style/page.css'
-import NavBar from './navBar';
+import NavBar from './navbar3';
 import ReactDOM from 'react-dom';
 import Template1 from './Template1';
 import Template2 from './Template2';
 import Template3 from './Template3';
-import Template4 from './template1';
+import Template4 from './template1(a)';
 import { Checkbox, useToast, Button } from '@chakra-ui/react';
 import axios from 'axios';
+import ReactDOMServer from 'react-dom/server';
 function Sidebar() {
     const id=localStorage.getItem('id');
     const toast = useToast();
     const [activeTab, setActiveTab] = useState('personal');
     const [selectedPhoto, setSelectedPhoto] = useState(null);
+    const [component, setComponent] = useState(null);
     const handlePhotoChange = (event) => {
         const file = event.target.files[0];
         console.log(file);
@@ -36,23 +38,19 @@ function Sidebar() {
     const navigate = useNavigate();
     const [componentcount, setComponentcount] = useState(1);
     let state = useParams();
-    let comp1;
-    useEffect((e) => {
-        //    e.preventDefault();
-        const componentTemplate = document.getElementById('resume');
-        if (state.value == 1) {
-            comp1 = ReactDOM.render(<Template1 />, componentTemplate);
-        }
-        else if (state.value == 2) {
-            comp1 = ReactDOM.render(<Template2 />, componentTemplate);
-        }
-        else if (state.value == 3) {
-            comp1 = ReactDOM.render(<Template3 />, componentTemplate);
-        }
-        else {
-            comp1 = ReactDOM.render(<Template4 />, componentTemplate);
-        }
-    })
+    
+        useEffect(() => {
+            if (state.value === '1') {
+                setComponent(<Template1 />);
+            } else if (state.value === '2') {
+                setComponent(<Template2 />);
+            } else if (state.value === '3') {
+                setComponent(<Template3 />);
+            } else {
+                setComponent(<Template4 />);
+            }
+        }, [state.value]);
+    const componentHtml = component ? ReactDOMServer.renderToStaticMarkup(component) : '';
     const [fname, setFname] = useState('');
     const [lname, setLname] = useState('');
     const [about, setAbout] = useState('');
@@ -1014,11 +1012,17 @@ function Sidebar() {
                 return null;
         }
     };
+    const jwtToken = localStorage.getItem('jwtToken'); 
 
+    if (!jwtToken) {
+        return <div>Please log in to access this page.</div>;
+    }
     return (
         <div >
             <NavBar />
-            <div style={{ display: 'flex', justifyContent: 'center', height: "100%" }}>
+            <div className='wrapper'>
+
+            <div className='side-container'>
                 <div className="side">
                     <ul className="flex-column">
 
@@ -1064,11 +1068,21 @@ function Sidebar() {
                 <div className="content">
                     {renderComponent()}
                 </div>
-                <div className='resumelive' id="resume">
+                {/* <div className='resumelive' id="resume">
                     {comp}
-                </div>
+                </div> */}
+  <div className='resumelive' >
+                        {/* Display the HTML content inside the iframe */}
+                        <iframe
+                           
+                            title="Resume Preview"
+                            id="resume"
+                            srcDoc={`<!DOCTYPE html><html><body>${componentHtml}</body></html>`}
+                            style={{ width: '100%', height: '630px', border: 'none' ,padding:'0px'}}
+                        />
+                        </div>
             </div>
-
+            </div>
         </div>
     );
 }

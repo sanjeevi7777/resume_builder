@@ -10,7 +10,7 @@ import Navbar3 from './components/navbar3';
 import Sidebar from './components/TempSideBar';
 import Home from './components/Home';
 import Template from './components/template';
-import Template1 from './components/template1';
+import Template1 from './components/template1(a)';
 import Personal from './components/personal';
 import Professional from './components/professional';
 import Contact from './components/contact';
